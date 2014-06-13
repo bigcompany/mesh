@@ -8,11 +8,17 @@
     "eventemitter"
   ],
   "main": "./index.js",
+  "scripts": {
+    "test": "node test/tests.js"
+  },
   "dependencies": {
     "engine.io": "0.3.9",
     "engine.io-client": "0.3.9",
     "eventemitter2": "*",
     "resource": "0.5.x",
     "resource-http": "0.5.x"
+  },
+  "devDependencies": {
+    "tap": "*"
   }
 }
