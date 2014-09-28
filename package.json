@@ -19,6 +19,7 @@
     "resource-http": "0.5.x"
   },
   "devDependencies": {
-    "tap": "*"
+    "tap": "*",
+    "colors": "*"
   }
 }
