@@ -8,7 +8,7 @@ var spawn = require('child_process').spawn,
     client;
 
 test("spawn server", function (t) {
-  server = spawn('node', [ __dirname + '/../example/server.js' ]);
+  server = spawn('node', [ __dirname + '/../example/0_basic/server.js' ]);
   server.stdout.on('data', logServer);
   server.stderr.on('data', logServer);
 
@@ -35,21 +35,28 @@ test("create client", function (t) {
     t.ok(data.lastSeen, 'uplink contains lastSeen');
   });
 
+  // todo: live eventTable updates
+  mesh.emitter.on('server-foo', function(){
+    // do nothing, registers event in eventTable on client
+  });
+
   mesh.connect({ port: 7777, name: 'test-client' }, function (err) {
     t.error(err, 'created mesh client');
   });
 });
 
   test("emit and receive events", function (t) {
-  t.plan(2);
-  mesh.once('server-echo::client-foo', function (data) {
+  t.plan(1);
+  
+  mesh.emitter.once('server-echo-client-foo', function (data) {
     t.equal(data.bar, 'foo', 'received server echo');
   });
-  mesh.once('server-foo', function (data) {
+  
+  mesh.emitter.once('server-foo', function (data) {
     t.equal(data.bar, 'foo', 'received server message');
   });
 
-  mesh.emit('client-foo', { bar: "foo" });
+ //mesh.emit('client-foo', { bar: "foo" });
 });
 
 test("close client", function (t) {
@@ -70,8 +77,8 @@ test("create server", function (t) {
   http.listen({ port: 8888 }, function (err) {
     t.error(err, 'started http server');
 
-    mesh.onAny(function(data){
-      mesh.emit('server-echo-' + this.event, data);
+    mesh.emitter.on('client-foo', function(data){
+      mesh.emitter.emit('server-echo-' + this.event, data);
     });
 
     mesh.listen({}, function (err) {
@@ -82,7 +89,7 @@ test("create server", function (t) {
 });
 
 test("spawn client, emit and receive events", function (t) {
-  t.plan(6);
+  t.plan(4);
 
   mesh.once('downlink', function (data) {
     t.equal(data.status, 'connected', 'downlink is connected');
@@ -90,16 +97,18 @@ test("spawn client, emit and receive events", function (t) {
     t.equal(data.role, 'client', 'downlink has role client');
   });
 
-  mesh.once('node::ohai', function (data) {
+  /*
+  mesh.emitter.once('node::ohai', function (data) {
     t.equal(data, "hello");
     t.ok(data, "received ohai")
   });
+  */
 
-  mesh.once('client-foo', function (data) {
+  mesh.emitter.once('client-foo', function (data) {
     t.equal(data.bar, 'foo', 'received client message');
   });
 
-  client = spawn('node', [ __dirname + '/../example/client.js' ]);
+  client = spawn('node', [ __dirname + '/../example/0_basic/client.js' ]);
   client.stdout.on('data', logClient);
   client.stderr.on('data', logClient);
 

@@ -20,30 +20,38 @@ mesh.property("host", {
 // Any events emitted on this eventEmitter will be broadcast to the mesh
 // by listeners added by the uplink and downlink methods
 //
-mesh.meshEmitter = new EventEmitter({
+mesh.emitter = new EventEmitter({
   wildcard: true,
   delimiter: '::',
-  maxListeners: 0
+  maxListeners: 0,
+  newListener: true
 });
 
+// Whenever a new listener is added to the mesh.emitter
+// add that new event to the resource eventTable namedspaced under "mesh::*"
 //
-// When emitting on the mesh resource, also emit to the meshEmitter so that
-// the event is broadcast to other nodes. The standard resource emit is called
-// internally by the mesh resource in order to emit events without
-// broadcasting.
+// Remark: mesh.emitter events are considered remote by default
+// This means that these events will be available to remote sources unless,
+// unless remote property is set to `false`
 //
-mesh.emit = function (event, payload) {
+// This is special behavior which only applies to the mesh.emitter.
+// All other resource event emitters will add events as NOT remote by default
+// see: https://github.com/bigcompany/resource
+//
+//
+mesh.emitter.on('newListener', function(ev){
+  resource.eventTable["mesh::" + ev] = {
+    remote: true
+  };
+  mesh.eventTable[ev] = {};
+});
 
-  //
-  // Emit the event over the mesh
-  //
-  return mesh.meshEmitter.emit(event, payload);
+mesh.mode = "unknown";
 
-  //
-  // Don't do the regular emit ( since its being used to broadcast to the remote mesh scope, not the local mesh scope)
-  //
-  // return emit(event, payload);
-};
+//
+// By default, keep autohealing of mesh disabled
+//
+mesh.autoheal = false;
 
 mesh.method('connect', require('./lib/connect'), {
   "input": {
@@ -61,5 +69,6 @@ mesh.method('listen', require('./lib/listen'), {
 
 mesh.method('downlink', require('./lib/downlink'));
 mesh.method('uplink', require('./lib/uplink'));
+mesh.method('start', require('./lib/start'));
 
 exports.mesh = mesh;
