@@ -1,4 +1,4 @@
-var mesh = require('../../').mesh;
+var mesh = require('../../');
 var resource = require('resource');
 var creature = resource.define('creature');
 
