@@ -6,7 +6,7 @@ provides a distributed event emitter mesh
 
 ## Features
 
- - Distributed WebSocket event emitter over
+ - Distributed WebSocket event emitter
  - Intelligent event broadcasting among mesh
  - Auto-detection of role as `server` or `client`
  - Powered by `engine.io`
