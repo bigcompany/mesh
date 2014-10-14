@@ -1,6 +1,6 @@
 var resource = require('resource'),
     http = require('resource-http'),
-    mesh = require('../../index').mesh;
+    mesh = require('../../index');
 
 require('colors');
 
@@ -11,7 +11,7 @@ mesh.start({ port: 7777 }, function (err){
   }
 
   mesh.emitter.on('customEvent', function(data){
-    console.log('mesh '.yellow + this.event + " - " + data.pid);
+    console.log(process.pid + ' - mesh '.yellow + this.event + " - " + data.pid);
   });
   
   setInterval(function(){

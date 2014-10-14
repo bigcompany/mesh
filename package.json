@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "debug": "*",
-    "engine.io": "0.3.9",
-    "engine.io-client": "0.3.9",
+    "engine.io": "1.4.1",
+    "engine.io-client": "1.4.1",
     "eventemitter2": "*",
     "resource": "https://github.com/bigcompany/resource/tarball/master",
     "resource-http": "0.5.x"

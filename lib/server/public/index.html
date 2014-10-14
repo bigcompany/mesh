@@ -1,0 +1,51 @@
+<html>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+  <style>
+    #meshActivity {
+      max-height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mesh WebSocket Gateway</h1>
+
+  <p>You have reached the generic webpage for the mesh's WebSocket Gateway. You can connect to this url using a WebSocket client.</p>
+
+  <p>For additional documentation visit: <a href="http://github.com/bigcompany/mesh">http://github.com/bigcompany/mesh</a>
+
+  <h3>Live Example code</h3>
+  <pre><code id="theCode"></code></pre>
+
+  <script src="mesh.js" type="text/javascript"></script>
+
+  <script id="theScript" type="text/javascript">
+    mesh.connect({ host: "localhost", port: "8888"}, function(){});
+    mesh.emitter.on('hello', function (data) {
+      if($('#meshActivity p').length > 10) {
+        $('#meshActivity p')[$('#meshActivity p').length -1].remove();
+      }
+      $('#meshActivity').prepend('<p>' + new Date().getTime() + " " + data + '</p>');
+    });
+    setInterval(function(){
+      mesh.emitter.emit('hello', 'browser is here');
+    }, 5000);
+    $(document).ready(function(){
+      $('#theCode').text($('#theScript').text());
+      $('#sendHello').click(function(){
+        var val = $('#text').val();
+        mesh.emitter.emit('hello', val);
+      });
+    });
+  </script>
+  
+  <h3>Send a hello message</h3>
+  Hello: <input id="text"/>
+  <input id="sendHello" type="button" value="Send"/>
+
+  <h3>Mesh Activity</h3>
+  <div id="meshActivity"></div>
+  
+</body>
+</html>

@@ -18,7 +18,7 @@ mesh.connect({ port: 7777, name: "test-client" }, function(err){
   }
 
   setInterval(function(){
-    mesh.emitter.emit('client-foo', { bar: "foo" });
+    mesh.emitter.emit('client-foo');
   }, 2000);
 
   mesh.emitter.on("server-foo", function(data){
