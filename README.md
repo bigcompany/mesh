@@ -60,10 +60,6 @@ Did you bind an event listener using `mesh.emitter.on`? Events **must** be bound
 
 By design, `mesh.emitter.onAny` will not receive remote events. This is in order to keep network traffic to a minimum.
 
-**I can't bind events using the repl or browser console!**
-
-Events **must** be explicitly bound *before* a node is started. Live events will be supported in future releases.
-
 **How are events broadcasted among the mesh?**
 
 `mesh` uses a [star topography](http://en.wikipedia.org/wiki/Star_network). The first node is the server and all subsequent nodes are clients.
@@ -86,7 +82,7 @@ An event map of every node is kept and exchanged on connection with the mesh. Ev
 
 **Can I bind new live events after a connection is made to the mesh?**
 
-Live events are not yet supported. They will be added in future releases.
+Yes! Live events are fully supported. This also means you can interact with the mesh in real-time using a repl.
 
 **Is it possible to get a remote callback for emitted mesh events?**
 

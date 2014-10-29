@@ -9,7 +9,7 @@
   ],
   "main": "./index.js",
   "scripts": {
-    "test": "node test/basic-tests.js"
+    "test": "tap test"
   },
   "dependencies": {
     "debug": "*",

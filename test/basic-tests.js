@@ -45,7 +45,7 @@ test("create client", function (t) {
   })
   
   client.emitter.on("server-echo-client-foo", function(data){
-    console.log('AAAA got server-echo-client-foo event'.green, data);
+    console.log('got server-echo-client-foo event'.green, data);
   })
 
 });
