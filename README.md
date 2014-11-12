@@ -2,7 +2,7 @@
 
 provides a distributed event emitter mesh
 
-<img src="https://travis-ci.org/bigcompany/resource-mesh.svg?branch=master"/>
+<img src="https://travis-ci.org/bigcompany/mesh.svg?branch=master"/>
 
 ## Features
 
