@@ -66,7 +66,7 @@ By design, `mesh.emitter.onAny` will not receive remote events. This is in order
 
 All nodes in the mesh are eligible for receiving events from any other node.
 
-<img src="http://en.wikipedia.org/wiki/Star_network#mediaviewer/File:StarNetwork.svg"/>
+<img height="250" width="250" src="http://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/StarNetwork.svg/1200px-StarNetwork.svg.png"/>
 
  - Any events emitted on a `client` will be recieved on the `server`
    - Provided the `server` has a listener for that event
