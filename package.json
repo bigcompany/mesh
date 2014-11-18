@@ -1,6 +1,6 @@
 {
   "name": "resource-mesh",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "provides a distributed p2p event emitter mesh",
   "keywords": [
     "mesh",
